@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<style type="text/css">
+			
+			*{
+				margin:0;
+				padding:0;
+			}
+			
+			#all{
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			
+			#all div{
+				width:30vw;
+				height:30vw;
+				background-color: rgb(255,165,0);
+				margin:1vw;
+				border-radius:10px;
+			}
+			#btn{
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			#btn div{
+				border: 2px  rgb(255,165,0) solid;
+				width:90vw;
+				height:40px;
+				margin:5px 0 ;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color:rgb(255,165,0);
+			}
+			#btn div:hover{
+				background-color: rgb(255,165,0);
+				color:white;
+				cursor: pointer;
+			}
+		</style>
+		<script type="text/javascript">
+			
+			window.onload = function(){
+				//获取all
+				var all = document.getElementById("all");	
+				//获取含有9个div的数组
+				var div = all.getElementsByTagName("div");
+				//设置一个随机数组
+				var arrRandom = [];
+				//设置抽取个数
+				var rannum = 3;
+				//随机获取一个颜色
+				function bgc(){
+		             return '#'+Math.floor(Math.random()*0xffffff).toString(16);
+		         }
+				//获取btn1,btn2
+				var btn1=document.getElementById("btn1");
+				var btn2=document.getElementById("btn2");
+				//设置开始闪单击响应函数
+				btn1.onclick=function(){
+					//设置一个定时器
+					timer =setInterval(function(){	
+						//设置一个0-8的数组
+						var arr =[0,1,2,3,4,5,6,7,8];
+						//还原黄色
+						for(var n=0;n <div.length;n++){
+							div[n].style.backgroundColor="rgb(255,165,0)";
+						}
+						//随机抽取3个数
+						for(var i=0;i<rannum;i++){
+							//获取随机数
+							var ran =Math.round(Math.random()*(arr.length-1)) ;
+							console.log(div[ran]);
+							console.log(ran);
+							//因为ran在arr中一一对应，所以arr[ran]就相当于ran
+							arrRandom.push(arr[ran]);
+							//改变一个div的颜色
+							div[ran].style.backgroundColor=bgc();	
+							//去除重复的数
+							arr.splice(ran,1);	
+						}
+					},1000)
+				}
+				//设置停止闪单击响应函数
+				btn2.onclick=function(){
+					//还原黄色
+					for(var n=0;n <div.length;n++){
+						div[n].style.backgroundColor="rgb(255,165,0)";
+					}
+					clearInterval(timer);
+					
+				}
+				
+			}
+			
+		</script>
+	</head>
+	<body>
+		<div id="all">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		
+		<div id="btn">
+			<div id="btn1">开始闪</div>
+		
+			<div id="btn2">结束闪</div>
+		</div>
+		
+		
+	</body>
+</html>
