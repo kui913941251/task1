@@ -52,8 +52,6 @@
 				var all = document.getElementById("all");	
 				//获取含有9个div的数组
 				var div = all.getElementsByTagName("div");
-				//设置一个随机数组
-				var arrRandom = [];
 				//设置抽取个数
 				var rannum = 3;
 				//随机获取一个颜色
@@ -64,29 +62,39 @@
 				var btn1=document.getElementById("btn1");
 				var btn2=document.getElementById("btn2");
 				//设置开始闪单击响应函数
+				//设置一个变量来保存定时器
+				var timer;
 				btn1.onclick=function(){
+					clearInterval(timer);
 					//设置一个定时器
 					timer =setInterval(function(){	
-						//设置一个0-8的数组
-						var arr =[0,1,2,3,4,5,6,7,8];
 						//还原黄色
 						for(var n=0;n <div.length;n++){
 							div[n].style.backgroundColor="rgb(255,165,0)";
 						}
-						//随机抽取3个数
-						for(var i=0;i<rannum;i++){
-							//获取随机数
-							var ran =Math.round(Math.random()*(arr.length-1)) ;
-							console.log(div[ran]);
-							console.log(ran);
-							//因为ran在arr中一一对应，所以arr[ran]就相当于ran
-							arrRandom.push(arr[ran]);
-							//改变一个div的颜色
-							div[ran].style.backgroundColor=bgc();	
-							//去除重复的数
-							arr.splice(ran,1);	
+						//设置三个随机数
+						arrRandom();
+						function arrRandom (){
+							var num1=Math.round(Math.random()*(div.length-1));
+							var num2=Math.round(Math.random()*(div.length-1));
+							var num3=Math.round(Math.random()*(div.length-1));
+							if(num1 != num2 && num1 != num3 && num2 != num3){
+								div[num1].style.backgroundColor=bgc();
+								div[num2].style.backgroundColor=bgc();
+								div[num3].style.backgroundColor=bgc();
+								console.log(num1+","+num2+","+num3);
+							}else{
+								arrRandom ();
+							}
 						}
+						
+						
+						/*for(i=0;i<arrRandom.length;i++){
+							console.log("三个随机数"+arrRandom[i]);
+							div[arrRandom[i]].style.backgroundColor=bgc();
+						}*/
 					},1000)
+					
 				}
 				//设置停止闪单击响应函数
 				btn2.onclick=function(){
